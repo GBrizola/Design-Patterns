@@ -28,6 +28,65 @@ Este projeto consiste em um jogo de adivinhação desenvolvido em C#, que utiliz
    dotnet test
    ```
 
+# GameContext Test
+
+Este projeto contém um teste unitário para a classe `GameContext` utilizando o framework de testes [xUnit](https://xunit.net/).
+
+## Descrição
+
+O teste verifica se o comportamento do `GameContext` está correto ao definir a estratégia de dificuldade como "Fácil". A classe `GameContext` é configurada com uma estratégia de dificuldade personalizada e, em seguida, a funcionalidade é testada para garantir que o comportamento esperado seja exibido ao iniciar o jogo.
+
+## Estrutura do Teste
+
+### Método de Teste
+
+```csharp
+[Fact]
+public void GameContext_ShouldUseEasyDifficulty()
+{
+    // Arrange
+    var context = new GameContext();
+    var easyStrategy = new EasyDifficulty();
+    context.SetDifficulty(easyStrategy);
+
+    // Act
+    using (var sw = new System.IO.StringWriter())
+    {
+        Console.SetOut(sw);
+        context.StartGame();
+
+        // Assert
+        var result = sw.ToString().Trim();
+        Assert.Equal("Modo Fácil: O número está entre 1 e 50.", result);
+    }
+}
+```
+
+#### Explicação do Teste
+
+1. **Arrange**: Configura o contexto do jogo (`GameContext`) com a estratégia de dificuldade fácil (`EasyDifficulty`).
+2. **Act**: Redireciona a saída do console para um `StringWriter` e chama o método `StartGame` do `GameContext`.
+3. **Assert**: Verifica se a saída do console corresponde à mensagem esperada para o modo fácil: 
+   
+   ```
+   "Modo Fácil: O número está entre 1 e 50."
+   ```
+
+## Pré-requisitos
+
+- [.NET SDK](https://dotnet.microsoft.com/download) instalado.
+- Conhecimento básico sobre estratégias de testes unitários e uso do xUnit.
+
+## Resultado Esperado
+
+Ao executar o teste, você deve ver uma saída indicando que todos os testes passaram:
+
+```bash
+Test Run Successful.
+Total tests: 1
+Passed: 1
+```
+
 ## Padrões de Projeto Utilizados
 
 ### 1. **Strategy**
