@@ -12,9 +12,16 @@ public class Program
         string difficulty = Console.ReadLine();
 
         if (difficulty == "1")
+        {
             gameContext.SetDifficulty(new EasyDifficulty());
+            game.Reset(1, 50);
+        }
+
         if (difficulty == "2")
-            gameContext.SetDifficulty(new HardDifficulty());
+        {
+          gameContext.SetDifficulty(new HardDifficulty());
+            game.Reset(1, 100);
+        }
 
         gameContext.StartGame();
         
@@ -26,10 +33,18 @@ public class Program
             {
                 var command = new GuessCommand(guess, game, gameSubject);
                 command.Execute();
+            } else {
+                Console.WriteLine("Por favor, digite um número válido.");
             }
         } while (game.Attempts < 10 && guess != game.NumberToGuess);
 
-        if (game.Attempts >= 6)
+        if (guess == game.NumberToGuess)
+        {
+            Console.WriteLine("Parabéns! Você adivinhou o número.");
+        }
+        else
+        {
             Console.WriteLine("Você não conseguiu adivinhar o número. Fim de jogo.");
+        }
     }
 }

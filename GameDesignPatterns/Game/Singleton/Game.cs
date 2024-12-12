@@ -4,11 +4,6 @@ public class Game
     public int NumberToGuess { get; private set; }
     public int Attempts { get; set; }
 
-    private Game()
-    {
-        Reset();
-    }
-
     public static Game Instance
     {
         get
@@ -19,10 +14,10 @@ public class Game
         }
     }
 
-    public void Reset()
+    public void Reset(int min = 1, int max = 100)
     {
         var random = new Random();
-        NumberToGuess = random.Next(1, 101); // Número aleatório entre 1 e 100
+        NumberToGuess = random.Next(min, max + 1); // Número aleatório entre min e max
         Attempts = 0;
     }
 }
